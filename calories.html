@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="faviconn.png">
+
+
+```
+<title>Calculateur de calories - FitCalc</title>
+
+<meta
+    name="description"
+    content="Calcule gratuitement tes besoins caloriques journaliers avec FitCalc."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+    /* ================================
+       CALCULATEUR CALORIES
+    ================================= */
+
+    .calculator-page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 90px 24px 70px;
+    }
+
+    /* INTRO */
+
+    .calculator-intro {
+        text-align: center;
+        max-width: 720px;
+        margin: 0 auto 55px;
+        animation: fadeUp .7s ease both;
+    }
+
+    .section-label {
+        display: inline-block;
+        margin-bottom: 16px;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: #7c5cff;
+    }
+
+    .calculator-intro h1 {
+        margin: 0 0 18px;
+        font-size: clamp(38px, 5vw, 62px);
+        line-height: 1.05;
+        letter-spacing: -2px;
+    }
+
+    .calculator-intro > p:last-child {
+        margin: 0 auto;
+        max-width: 620px;
+        color: #737373;
+        font-size: 18px;
+        line-height: 1.7;
+    }
+
+    /* CONTENEUR PRINCIPAL */
+
+    .calculator-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 28px;
+        align-items: stretch;
+    }
+
+    .calculator-form,
+    .result-container {
+        border-radius: 28px;
+        border: 1px solid rgba(0, 0, 0, .07);
+        background: rgba(255, 255, 255, .82);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .07);
+        backdrop-filter: blur(15px);
+    }
+
+    /* FORMULAIRE */
+
+    .calculator-form {
+        padding: 36px;
+        animation: fadeUp .7s .1s ease both;
+    }
+
+    .form-group {
+        margin-bottom: 21px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 9px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        box-sizing: border-box;
+        height: 54px;
+        padding: 0 16px;
+        border: 1px solid #e3e3e3;
+        border-radius: 14px;
+        background: #fafafa;
+        color: #171717;
+        font-family: inherit;
+        font-size: 15px;
+        outline: none;
+        transition:
+            border-color .25s ease,
+            box-shadow .25s ease,
+            background .25s ease,
+            transform .25s ease;
+    }
+
+    .form-group input:hover,
+    .form-group select:hover {
+        background: #fff;
+        border-color: #d1d1d1;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        background: #fff;
+        border-color: #7c5cff;
+        box-shadow: 0 0 0 4px rgba(124, 92, 255, .10);
+        transform: translateY(-1px);
+    }
+
+    .calculate-button {
+        width: 100%;
+        min-height: 56px;
+        margin-top: 5px;
+        border: 0;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #7c5cff, #6344e8);
+        color: white;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        box-shadow: 0 12px 28px rgba(124, 92, 255, .25);
+        transition:
+            transform .25s ease,
+            box-shadow .25s ease,
+            filter .25s ease;
+    }
+
+    .calculate-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 17px 35px rgba(124, 92, 255, .32);
+        filter: brightness(1.04);
+    }
+
+    .calculate-button:active {
+        transform: translateY(-1px) scale(.99);
+    }
+
+    /* ERREUR */
+
+    .error-message {
+        min-height: 20px;
+        margin: 13px 0 0;
+        color: #e5484d;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    /* RESULTAT */
+
+    .result-container {
+        position: relative;
+        min-height: 500px;
+        overflow: hidden;
+        animation: fadeUp .7s .2s ease both;
+    }
+
+    .result-container::before {
+        content: "";
+        position: absolute;
+        width: 230px;
+        height: 230px;
+        top: -100px;
+        right: -80px;
+        border-radius: 50%;
+        background: rgba(124, 92, 255, .09);
+        filter: blur(5px);
+    }
+
+    .result-placeholder {
+        min-height: 500px;
+        padding: 45px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        position: relative;
+    }
+
+    .result-icon {
+        width: 78px;
+        height: 78px;
+        margin-bottom: 25px;
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+            135deg,
+            rgba(124, 92, 255, .13),
+            rgba(124, 92, 255, .05)
+        );
+        font-size: 34px;
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    .result-placeholder h2 {
+        margin: 0 0 12px;
+        font-size: 24px;
+    }
+
+    .result-placeholder p {
+        max-width: 390px;
+        margin: 0;
+        color: #858585;
+        line-height: 1.7;
+    }
+
+    /* RESULTAT APRES CALCUL */
+
+    .result-content {
+        position: relative;
+        padding: 42px;
+        animation: resultAppear .55s ease both;
+    }
+
+    .result-label {
+        margin: 0 0 10px;
+        color: #7c5cff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+    }
+
+    .result-content h2 {
+        margin: 0;
+        font-size: clamp(48px, 6vw, 68px);
+        line-height: 1;
+        letter-spacing: -3px;
+        background: linear-gradient(135deg, #171717, #7c5cff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .result-subtitle {
+        margin: 14px 0 34px;
+        color: #777;
+        font-size: 15px;
+    }
+
+    .result-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 22px;
+    }
+
+    .result-stat {
+        padding: 20px;
+        border: 1px solid #ededed;
+        border-radius: 18px;
+        background: #fafafa;
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .result-stat:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(0, 0, 0, .06);
+    }
+
+    .result-stat span {
+        display: block;
+        margin-bottom: 8px;
+        color: #888;
+        font-size: 13px;
+    }
+
+    .result-stat strong {
+        display: block;
+        font-size: 20px;
+    }
+
+    .result-tip {
+        padding: 18px 20px;
+        border-radius: 17px;
+        background: rgba(124, 92, 255, .07);
+        color: #555;
+        font-size: 13px;
+        line-height: 1.65;
+    }
+
+    /* INFORMATIONS */
+
+    .info-section {
+        max-width: 800px;
+        margin: 75px auto 0;
+        padding: 34px;
+        border-radius: 24px;
+        border: 1px solid rgba(0, 0, 0, .06);
+        background: rgba(255, 255, 255, .7);
+        text-align: center;
+        animation: fadeUp .7s .3s ease both;
+    }
+
+    .info-section h2 {
+        margin: 0 0 13px;
+        font-size: 25px;
+    }
+
+    .info-section p {
+        margin: 0;
+        color: #777;
+        line-height: 1.75;
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes resultAppear {
+        from {
+            opacity: 0;
+            transform: translateY(18px) scale(.98);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes floating {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-7px);
+        }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+        .calculator-page {
+            padding: 60px 18px 50px;
+        }
+
+        .calculator-container {
+            grid-template-columns: 1fr;
+        }
+
+        .calculator-form {
+            padding: 25px;
+        }
+
+        .result-container,
+        .result-placeholder {
+            min-height: 430px;
+        }
+
+        .result-content {
+            padding: 30px 25px;
+        }
+
+        .result-stats {
+            grid-template-columns: 1fr;
+        }
+
+        .info-section {
+            margin-top: 45px;
+            padding: 25px;
+        }
+    }
+
+    @media (max-width: 450px) {
+
+        .calculator-intro h1 {
+            letter-spacing: -1.5px;
+        }
+
+        .calculator-intro > p:last-child {
+            font-size: 16px;
+        }
+
+        .result-content h2 {
+            font-size: 48px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- NAVIGATION -->
+
+<header class="navbar">
+
+    <div class="logo">
+        Fit<span>Calc</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="index.html#calculateurs">Calculateurs</a>
+    </nav>
+
+</header>
+
+
+<!-- CALCULATEUR -->
+
+<main class="calculator-page">
+
+    <section class="calculator-intro">
+
+        <p class="section-label">
+            CALCULATEUR FITNESS
+        </p>
+
+        <h1>
+            Calculateur de calories
+        </h1>
+
+        <p>
+            Estime tes besoins caloriques quotidiens et adapte ton
+            alimentation à ton objectif.
+        </p>
+
+    </section>
+
+
+    <section class="calculator-container">
+
+        <!-- FORMULAIRE -->
+
+        <div class="calculator-form">
+
+            <div class="form-group">
+
+                <label for="weight">
+                    Poids (kg)
+                </label>
+
+                <input
+                    type="number"
+                    id="weight"
+                    placeholder="Ex : 75"
+                    min="20"
+                    max="300"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="height">
+                    Taille (cm)
+                </label>
+
+                <input
+                    type="number"
+                    id="height"
+                    placeholder="Ex : 178"
+                    min="100"
+                    max="250"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="age">
+                    Âge
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    placeholder="Ex : 20"
+                    min="13"
+                    max="100"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="sex">
+                    Sexe
+                </label>
+
+                <select id="sex">
+
+                    <option value="">
+                        Sélectionner
+                    </option>
+
+                    <option value="male">
+                        Homme
+                    </option>
+
+                    <option value="female">
+                        Femme
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="activity">
+                    Niveau d'activité
+                </label>
+
+                <select id="activity">
+
+                    <option value="">
+                        Sélectionner
+                    </option>
+
+                    <option value="1.2">
+                        Sédentaire — peu ou pas de sport
+                    </option>
+
+                    <option value="1.375">
+                        Légèrement actif — 1 à 3 séances/semaine
+                    </option>
+
+                    <option value="1.55">
+                        Modérément actif — 3 à 5 séances/semaine
+                    </option>
+
+                    <option value="1.725">
+                        Très actif — 6 à 7 séances/semaine
+                    </option>
+
+                    <option value="1.9">
+                        Extrêmement actif — entraînement intense
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="goal">
+                    Objectif
+                </label>
+
+                <select id="goal">
+
+                    <option value="">
+                        Sélectionner
+                    </option>
+
+                    <option value="cut">
+                        🔻 Perdre du poids
+                    </option>
+
+                    <option value="maintain">
+                        ⚖️ Maintenir mon poids
+                    </option>
+
+                    <option value="bulk">
+                        📈 Prendre du poids
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="calculate-button"
+                onclick="calculateCalories()"
+            >
+                Calculer mes calories
+            </button>
+
+
+            <p id="error" class="error-message"></p>
+
+        </div>
+
+
+        <!-- RÉSULTAT -->
+
+        <div
+            id="result"
+            class="result-container"
+        >
+
+            <div class="result-placeholder">
+
+                <div class="result-icon">
+                    🔥
+                </div>
+
+                <h2>
+                    Ton résultat apparaîtra ici
+                </h2>
+
+                <p>
+                    Remplis les informations pour calculer
+                    tes besoins énergétiques.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INFORMATIONS -->
+
+    <section class="info-section">
+
+        <h2>
+            Comment fonctionne le calcul ?
+        </h2>
+
+        <p>
+            FitCalc utilise une estimation basée sur le métabolisme
+            de base et ton niveau d'activité physique. Le résultat
+            constitue une estimation et peut varier selon chaque personne.
+        </p>
+
+    </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo">
+        Fit<span>Calc</span>
+    </div>
+
+    <p>
+        © 2026 FitCalc — Calculateurs fitness gratuits.
+    </p>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+    function calculateCalories() {
+
+        const weight =
+            parseFloat(document.getElementById("weight").value);
+
+        const height =
+            parseFloat(document.getElementById("height").value);
+
+        const age =
+            parseFloat(document.getElementById("age").value);
+
+        const sex =
+            document.getElementById("sex").value;
+
+        const activity =
+            parseFloat(document.getElementById("activity").value);
+
+        const goal =
+            document.getElementById("goal").value;
+
+        const error =
+            document.getElementById("error");
+
+        const result =
+            document.getElementById("result");
+
+
+        /* VALIDATION */
+
+        if (
+            !weight ||
+            !height ||
+            !age ||
+            !sex ||
+            !activity ||
+            !goal
+        ) {
+
+            error.textContent =
+                "Veuillez remplir tous les champs.";
+
+            return;
+        }
+
+
+        error.textContent = "";
+
+
+        /* MIFFLIN-ST JEOR */
+
+        let bmr;
+
+
+        if (sex === "male") {
+
+            bmr =
+                (10 * weight) +
+                (6.25 * height) -
+                (5 * age) +
+                5;
+
+        } else {
+
+            bmr =
+                (10 * weight) +
+                (6.25 * height) -
+                (5 * age) -
+                161;
+
+        }
+
+
+        /* CALORIES DE MAINTIEN */
+
+        const maintenance =
+            Math.round(bmr * activity);
+
+
+        /* OBJECTIF */
+
+        let targetCalories;
+
+
+        if (goal === "cut") {
+
+            targetCalories =
+                Math.round(maintenance * 0.85);
+
+        } else if (goal === "bulk") {
+
+            targetCalories =
+                Math.round(maintenance * 1.10);
+
+        } else {
+
+            targetCalories =
+                maintenance;
+
+        }
+
+
+        /* PROTÉINES */
+
+        const protein =
+            Math.round(weight * 1.8);
+
+
+        /* AFFICHAGE */
+
+        result.innerHTML = `
+
+            <div class="result-content">
+
+                <p class="result-label">
+                    TON OBJECTIF
+                </p>
+
+                <h2>
+                    ${targetCalories} kcal
+                </h2>
+
+                <p class="result-subtitle">
+                    Calories recommandées par jour
+                </p>
+
+                <div class="result-stats">
+
+                    <div class="result-stat">
+
+                        <span>
+                            Calories de maintien
+                        </span>
+
+                        <strong>
+                            ${maintenance} kcal
+                        </strong>
+
+                    </div>
+
+                    <div class="result-stat">
+
+                        <span>
+                            Protéines recommandées
+                        </span>
+
+                        <strong>
+                            ${protein} g
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="result-tip">
+
+                    💡 Ces valeurs sont des estimations.
+                    Observe ton évolution pendant plusieurs semaines
+                    et ajuste progressivement ton apport.
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+</script>
+```
+
+</body>
+</html>

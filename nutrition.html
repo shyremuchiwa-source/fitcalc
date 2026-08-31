@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="faviconn.png">
+
+
+```
+<title>Nutrition — FitCalc</title>
+
+<link rel="stylesheet" href="nutrition.css">
+```
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+```
+<a href="../index.html" class="logo">
+    Fit<span>Calc</span>
+</a>
+
+<nav class="desktop-nav">
+    <a href="../index.html">Accueil</a>
+    <a href="../index.html#calculators">Calculateurs</a>
+    <a href="nutrition.html" class="active">Nutrition</a>
+    <a href="../index.html#faq">FAQ</a>
+</nav>
+
+<a href="../index.html#calculators" class="nav-button">
+    Calculateurs
+</a>
+```
+
+</header>
+
+<main>
+
+```
+<section class="nutrition-hero">
+
+    <div class="hero-orb orb-one"></div>
+    <div class="hero-orb orb-two"></div>
+
+    <div class="nutrition-hero-content">
+
+        <div class="hero-badge">
+            🥗 NUTRITION FITCALC
+        </div>
+
+        <h1>
+            Mange selon
+            <span>ton objectif.</span>
+        </h1>
+
+        <p>
+            Choisis ton objectif et découvre des aliments
+            et recettes adaptés à ta progression.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="goal-section">
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            TON OBJECTIF
+        </div>
+
+        <h2>
+            Qu'est-ce que tu veux atteindre ?
+        </h2>
+
+        <p>
+            Sélectionne ton objectif pour personnaliser
+            les recommandations.
+        </p>
+
+    </div>
+
+
+    <div class="goal-grid">
+
+        <button type="button" class="goal-card" data-goal="cut">
+
+            <span class="goal-icon">🔥</span>
+
+            <strong>Sèche</strong>
+
+            <span>Perdre du gras</span>
+
+        </button>
+
+
+        <button type="button" class="goal-card" data-goal="maintain">
+
+            <span class="goal-icon">⚖️</span>
+
+            <strong>Maintien</strong>
+
+            <span>Garder mon poids</span>
+
+        </button>
+
+
+        <button type="button" class="goal-card" data-goal="bulk">
+
+            <span class="goal-icon">💪</span>
+
+            <strong>Prise de masse</strong>
+
+            <span>Construire du muscle</span>
+
+        </button>
+
+
+        <button type="button" class="goal-card" data-goal="performance">
+
+            <span class="goal-icon">⚡</span>
+
+            <strong>Performance</strong>
+
+            <span>Optimiser mes performances</span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<section class="foods-section">
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            ALIMENTS
+        </div>
+
+        <h2 id="foodTitle">
+            Les meilleurs aliments pour ton objectif.
+        </h2>
+
+        <p id="foodDescription">
+            Sélectionne un objectif ci-dessus.
+        </p>
+
+    </div>
+
+    <div id="foodGrid" class="food-grid"></div>
+
+</section>
+
+
+<section class="recipes-section">
+
+    <div class="section-heading">
+
+        <div class="section-label">
+            RECETTES
+        </div>
+
+        <h2>
+            Des idées de repas adaptées.
+        </h2>
+
+        <p>
+            Des recettes simples et faciles à intégrer
+            dans ton alimentation.
+        </p>
+
+    </div>
+
+    <div id="recipeGrid" class="recipe-grid"></div>
+
+</section>
+
+
+<section class="nutrition-cta">
+
+    <div class="cta-box">
+
+        <div>
+
+            <div class="section-label">
+                BESOIN DE PRÉCISION ?
+            </div>
+
+            <h2>
+                Commence par calculer
+                tes besoins caloriques.
+            </h2>
+
+            <p>
+                Obtiens une estimation de tes besoins
+                caloriques quotidiens.
+            </p>
+
+        </div>
+
+        <a href="../calories.html" class="cta-button">
+            Calculer mes calories →
+        </a>
+
+    </div>
+
+</section>
+```
+
+</main>
+
+<footer>
+
+```
+<div class="footer-container">
+
+    <div class="footer-brand">
+
+        <a href="../index.html" class="logo footer-logo">
+            Fit<span>Calc</span>
+        </a>
+
+        <p>
+            Des outils simples pour comprendre tes chiffres,
+            mieux manger et progresser.
+        </p>
+
+    </div>
+
+
+    <div class="footer-column">
+
+        <h4>FitCalc</h4>
+
+        <a href="../index.html">
+            Accueil
+        </a>
+
+        <a href="nutrition.html">
+            Nutrition
+        </a>
+
+        <a href="../index.html#faq">
+            FAQ
+        </a>
+
+    </div>
+
+
+    <div class="footer-column">
+
+        <h4>Calculateurs</h4>
+
+        <a href="../calories.html">
+            Calories
+        </a>
+
+        <a href="../proteines.html">
+            Protéines
+        </a>
+
+        <a href="../imc.html">
+            IMC
+        </a>
+
+        <a href="../1rm.html">
+            1RM
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="footer-bottom">
+
+    <span>
+        © 2026 FitCalc
+    </span>
+
+    <span>
+        Nutrition & Fitness
+    </span>
+
+</div>
+```
+
+</footer>
+
+<script src="./nutrition.js"></script>
+
+</body>
+</html>
